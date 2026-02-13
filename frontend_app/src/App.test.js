@@ -3,6 +3,5 @@ import App from "./App";
 
 test("renders app title", () => {
   render(<App />);
-  const title = screen.getByText(/retro task manager/i);
-  expect(title).toBeInTheDocument();
+  expect(screen.getByText(/retro task manager/i)).toBeInTheDocument();
 });
