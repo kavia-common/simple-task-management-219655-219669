@@ -80,7 +80,11 @@ describe("Retro Task Manager (CRUD, filters, localStorage)", () => {
     expect(screen.getByText("Quest B")).toBeInTheDocument();
 
     // Filter Completed should show Quest A only
-    await userEvent.click(screen.getByRole("button", { name: /completed/i }));
+    // Disambiguate from the header action button "Clear completed" by scoping to the filters toolbar.
+    const filterToolbar = screen.getByRole("toolbar", { name: /task filters/i });
+    await userEvent.click(
+      within(filterToolbar).getByRole("button", { name: /^completed$/i })
+    );
     expect(screen.getByText("Quest A")).toBeInTheDocument();
     expect(screen.queryByText("Quest B")).not.toBeInTheDocument();
 
